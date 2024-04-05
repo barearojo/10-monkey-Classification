@@ -12,8 +12,14 @@ import torchvision
 # Importa el módulo de transformaciones de torchvision y lo renombra como 'transform'
 import torchvision.transforms as transform
 
+import matplotlib.pyplot as plt 
+import numpy as np
+
 # Define la ruta al directorio que contiene el conjunto de datos de entrenamiento de imágenes
 training_dataset_path = "./data/training/training"
+# Define la ruta al directorio que contiene el conjunto de datos de validación de imágenes
+training_dataset_path = "./data/validation/validation"
+
 
 # Define una secuencia de transformaciones para preprocesar las imágenes de entrenamiento
 training_resize = transform.Compose([
@@ -37,6 +43,13 @@ train_dataset = torchvision.datasets.ImageFolder(
 # 'shuffle' indica si se deben barajar los datos antes de cargarlos en lotes
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=32, shuffle=False)
 
+
+
+#El resultado de la función get_mean_std(train_loader) proporciona dos tensores de PyTorch: uno representa la media
+#y el otro la desviación estándar de los valores de píxeles en cada canal de color para todas las imágenes del conjunto 
+#de datos de entrenamiento. Estos valores son fundamentales para normalizar los datos antes de entrenar un modelo de aprendizaje 
+#automático, lo que puede mejorar la convergencia y el rendimiento del modelo al centrar los datos alrededor de cero y escalarlos 
+#para tener una varianza uniforme.
 # Define una función para calcular la media y la desviación estándar de un conjunto de datos
 def get_mean_std(loader):
     # Inicializa la suma de la media y la desviación estándar
