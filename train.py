@@ -14,9 +14,11 @@ import torchvision.transforms as transform
 
 import matplotlib.pyplot as plt 
 import numpy as np
-import torch.nn as nn
+import torch.nn as red_neuronal
 import torch.optim as optim
 import torchvision.models as models
+
+import red_neuronal.py
 
 # Define la ruta al directorio que contiene el conjunto de datos de entrenamiento de imágenes
 training_dataset_path = "./data/training/training"
@@ -80,13 +82,13 @@ num_ftr = model_usado.fc.in_features
 number_classes = 10
 
 #prepara la matrices de propagración
-model_usado.fc = nn.Linear(num_ftr, number_classes)
+model_usado.fc = red_neuronal.Linear(num_ftr, number_classes)
 
 #le añadimos el device que vamos a usar
 model_con_device = model_usado.to(device)
 
 #funcion de perdida
-loss_fn = nn.CrossEntropyLoss()
+loss_fn = red_neuronal.CrossEntropyLoss()
 
 #elegimos optimizador
 optimizer = optim.SGD(model_con_device.parameters(), lr = 0.01, momentum=0.9, weight_decay=0.003)
