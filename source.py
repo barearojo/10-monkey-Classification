@@ -72,6 +72,7 @@ print("Para entrenar la red neuronal se va a utilizar el siguiente componente ",
 
 def train_nn(model, train_loader, test_loader, criterion, optimizer, n_epochs):
     device = set_device()
+    best_acc = 0
 
     for epoch in range(n_epochs):
         print("Iteración número", (epoch + 1))
@@ -105,7 +106,10 @@ def train_nn(model, train_loader, test_loader, criterion, optimizer, n_epochs):
         epoch_acc = 100.00 *  running_correct/ total
         print("----- Training dataset got {} out of {} images correct ({}%). Con una pérdida de {}".format(running_correct, total, epoch_acc, epoch_loss))
 
-        evaluate_model(model,test_loader)
+        test_acc = evaluate_model(model,test_loader)
+        if test_acc > best_acc:
+            best_acc = test_acc
+            save_checkpoint(model, epoch, optimizer, best_acc)
     
     print("Entrenamiento terminado")
     return model
@@ -133,7 +137,16 @@ def evaluate_model(model, test_loader):
 
     epoch_acc = 100.00 *  predicted_correct_epoch/ total
     print("----- Testing dataset got {} out of {} images correct ({}%)".format(predicted_correct_epoch, total, epoch_acc))
+    return epoch_acc
 
+def save_checkpoint(model, epoch, optimizer, best_acc):
+    state = {
+        'model' : model.state_dict(),
+        'epoch' : epoch + 1,
+        'best_accuracy' : best_acc,
+        'optimizer' : optimizer.state_dict(),
+    }
+    torch.save(state, 'model_best_checkpoint.pth.tar')
 
 
 
