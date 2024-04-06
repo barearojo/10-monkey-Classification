@@ -137,7 +137,7 @@ def evaluate_model(model, test_loader):
 
 
 #se ha elegido el 50 debido a que ofrece un buen balance entre eficiencia y precisión
-model_usado = models.resnet18(weights='imagenet')
+model_usado = models.resnet18(pretrained=True)
 
 
 #numero de caracteristicas a tener en cuenta
