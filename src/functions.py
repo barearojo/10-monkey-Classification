@@ -72,9 +72,10 @@ def evaluate_model(model, validation_loader,optimizer):
 
 def save_checkpoint(model, epoch, optimizer, best_acc):
     state = {
-        'model' : model.state_dict(),
-        'epoch' : epoch + 1,
-        'best_accuracy' : best_acc,
-        'optimizer' : optimizer.state_dict(),
+        'model': model.state_dict(),
+        'epoch': epoch + 1,
+        'best_accuracy': best_acc,
+        'optimizer': optimizer.state_dict(),
     }
-    torch.save(state, 'model_best_checkpoint.pth.tar')
+    filename = f"./models/model_best_checkpoint.pth.tar"
+    torch.save(state, filename)

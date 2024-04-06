@@ -18,7 +18,7 @@ import torch.nn as red_neuronal
 import torch.optim as optim
 import torchvision.models as models
 
-from red_neuronal import train_nn
+from functions import train_nn
 from utils import set_device
 
 # Define la ruta al directorio que contiene el conjunto de datos de entrenamiento de imágenes
@@ -90,7 +90,18 @@ loss_fn = red_neuronal.CrossEntropyLoss()
 #elegimos optimizador
 optimizer = optim.SGD(model_con_device.parameters(), lr = 0.01, momentum=0.9, weight_decay=0.003)
 
-train_nn(model_con_device,train_loader,validation_loader,loss_fn,optimizer,10)
+train_nn(model_con_device,train_loader,validation_loader,loss_fn,optimizer,15)
+
+checkpoint = torch.load('./models/model_best_checkpoint.pth.tar')
+
+
+print("La mejor iteración fue ", checkpoint['epoch'], "con una precisión de ",checkpoint['best_accuracy'] )
+
+model_con_device.load_state_dict(checkpoint['model'])
+best_accuracy = checkpoint['best_accuracy']
+torch.save(model_con_device, f"./models/mejor_modelo_{best_accuracy:.2f}.pth")
+
+
 
 
 
