@@ -159,7 +159,7 @@ loss_fn = nn.CrossEntropyLoss()
 #elegimos optimizador
 optimizer = optim.SGD(model_con_device.parameters(), lr = 0.01, momentum=0.9, weight_decay=0.003)
 
-#train_nn(model_con_device,train_loader,validation_loader,loss_fn,optimizer,100)
+train_nn(model_con_device,train_loader,validation_loader,loss_fn,optimizer,20)
 
 
 
