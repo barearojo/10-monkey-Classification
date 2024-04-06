@@ -1,3 +1,6 @@
+import torch
+from train import set_device
+
 def train_nn(model, train_loader, test_loader, criterion, optimizer, n_epochs):
     device = set_device()
     best_acc = 0
@@ -34,7 +37,7 @@ def train_nn(model, train_loader, test_loader, criterion, optimizer, n_epochs):
         epoch_acc = 100.00 *  running_correct/ total
         print("----- Training dataset got {} out of {} images correct ({}%). Con una pérdida de {}".format(running_correct, total, epoch_acc, epoch_loss))
 
-        test_acc = evaluate_model(model,test_loader)
+        test_acc = evaluate_model(model,test_loader,optimizer)
         if test_acc > best_acc:
             best_acc = test_acc
             save_checkpoint(model, epoch, optimizer, best_acc)
@@ -43,14 +46,14 @@ def train_nn(model, train_loader, test_loader, criterion, optimizer, n_epochs):
     return model
 
 
-def evaluate_model(model, test_loader):
+def evaluate_model(model, validation_loader,optimizer):
     model.eval()
     predicted_correct_epoch = 0
     total = 0
     device = set_device()
 
     with torch.no_grad():
-        for data in train_loader:
+        for data in validation_loader:
             images, labels = data
             images = images.to(device)
             labels = labels.to(device)
