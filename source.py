@@ -53,9 +53,21 @@ validation_resize = transform.Compose([
 train_dataset = torchvision.datasets.ImageFolder( root=training_dataset_path, transform=training_resize)
 validation_dataset = torchvision.datasets.ImageFolder(root= validation_dataset_path, transform=validation_resize)
 
+#empezar con 32 y luego ir subiendo multiplicanod por dos hasta encontrar el mejor
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=32, shuffle=True)
 validation_loader = torch.utils.data.DataLoader(dataset=validation_dataset, batch_size=32, shuffle=False)
 
+def set_device():
+    if torch.cuda.is_available():
+        dev = "cuda:0"
+    else:
+        dev = "cpu"
+    
+    return torch.device(dev)
+
+# Llamando a la función set_device para obtener el dispositivo
+device = set_device()
+print(device)
 
 
 
