@@ -18,7 +18,7 @@ import torch.nn as red_neuronal
 import torch.optim as optim
 import torchvision.models as models
 
-import red_neuronal.py
+import red_neuronal
 
 # Define la ruta al directorio que contiene el conjunto de datos de entrenamiento de imágenes
 training_dataset_path = "./data/training/training"
