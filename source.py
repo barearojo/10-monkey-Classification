@@ -61,12 +61,9 @@ train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=32,
 validation_loader = torch.utils.data.DataLoader(dataset=validation_dataset, batch_size=32, shuffle=False)
 
 def set_device():
-    if torch.cuda.is_available():
-        dev = "cuda:0"
-    else:
-        dev = "cpu"
-    
-    return torch.device(dev)
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    return device
+
 
 # Llamando a la función set_device para obtener el dispositivo
 device = set_device()
@@ -140,7 +137,8 @@ def evaluate_model(model, test_loader):
 
 
 #se ha elegido el 50 debido a que ofrece un buen balance entre eficiencia y precisión
-model_usado = models.resnet18(pretrained = True)
+model_usado = models.resnet18(weights='imagenet')
+
 
 #numero de caracteristicas a tener en cuenta
 num_ftr = model_usado.fc.in_features
@@ -160,7 +158,7 @@ loss_fn = nn.CrossEntropyLoss()
 #elegimos optimizador
 optimizer = optim.SGD(model_con_device.parameters(), lr = 0.01, momentum=0.9, weight_decay=0.003)
 
-train_nn(model_con_device,train_loader,validation_loader,loss_fn,optimizer,100)
+#train_nn(model_con_device,train_loader,validation_loader,loss_fn,optimizer,100)
 
 
 
