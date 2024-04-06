@@ -130,13 +130,14 @@ def evaluate_model(model, test_loader):
 
             _, predicted = torch.max(outputs.data,1)
             predicted_correct_epoch += (labels==predicted).sum().item()
-            epoch_acc = 100.00 *  predicted_correct_epoch/ total
-            print("----- Testing dataset got {} out of {} images correct ({}%)".format(predicted_correct_epoch, total, epoch_acc))
+
+    epoch_acc = 100.00 *  predicted_correct_epoch/ total
+    print("----- Testing dataset got {} out of {} images correct ({}%)".format(predicted_correct_epoch, total, epoch_acc))
 
 
 
 
-#se ha elegido el 50 debido a que ofrece un buen balance entre eficiencia y precisión
+#se ha elegido el 18 debido a que ofrece un buen balance entre eficiencia y precisión
 model_usado = models.resnet18(pretrained=True)
 
 
