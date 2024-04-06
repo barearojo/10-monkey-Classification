@@ -1,5 +1,5 @@
 import torch
-from train import set_device
+from utils import set_device
 
 def train_nn(model, train_loader, test_loader, criterion, optimizer, n_epochs):
     device = set_device()

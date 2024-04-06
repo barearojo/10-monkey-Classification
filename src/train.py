@@ -19,6 +19,7 @@ import torch.optim as optim
 import torchvision.models as models
 
 from red_neuronal import train_nn
+from utils import set_device
 
 # Define la ruta al directorio que contiene el conjunto de datos de entrenamiento de imágenes
 training_dataset_path = "./data/training/training"
@@ -62,10 +63,6 @@ validation_dataset = torchvision.datasets.ImageFolder(root= validation_dataset_p
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=32, shuffle=True)
 validation_loader = torch.utils.data.DataLoader(dataset=validation_dataset, batch_size=32, shuffle=False)
 
-def set_device():
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    return device
-
 
 # Llamando a la función set_device para obtener el dispositivo
 device = set_device()
@@ -93,7 +90,7 @@ loss_fn = red_neuronal.CrossEntropyLoss()
 #elegimos optimizador
 optimizer = optim.SGD(model_con_device.parameters(), lr = 0.01, momentum=0.9, weight_decay=0.003)
 
-train_nn(model_con_device,train_loader,validation_loader,loss_fn,optimizer,20)
+train_nn(model_con_device,train_loader,validation_loader,loss_fn,optimizer,10)
 
 
 
