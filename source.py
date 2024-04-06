@@ -14,6 +14,9 @@ import torchvision.transforms as transform
 
 import matplotlib.pyplot as plt 
 import numpy as np
+import torch.nn as nn
+import torch.optim as optim
+import torchvision.models as models
 
 # Define la ruta al directorio que contiene el conjunto de datos de entrenamiento de imágenes
 training_dataset_path = "./data/training/training"
@@ -67,7 +70,19 @@ def set_device():
 
 # Llamando a la función set_device para obtener el dispositivo
 device = set_device()
-print(device)
+print("Para entrenar la red neuronal se va a utilizar el siguiente componente ",device)
+
+
+def train_nn(model, train_loader, test_loader, criterion, optimizer, n_epochs):
+    return 3
+
+def evaluate_model(model, test_loader):
+    return 4
+
+#se ha elegido el 50 debido a que ofrece un buen balance entre eficiencia y precisión
+model_usado = models.resnet50(pretrained = True)
+
+
 
 
 
