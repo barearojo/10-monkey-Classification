@@ -46,36 +46,61 @@ def train_nn(model, train_loader, test_loader, criterion, optimizer, n_epochs):
     return model
 
 
-def evaluate_model(model, validation_loader,optimizer):
-    model.eval()
-    predicted_correct_epoch = 0
-    total = 0
-    device = set_device()
+def evaluate_model(model, validation_loader, optimizer):
+    """
+    Función para evaluar el modelo en un conjunto de datos de validación.
 
-    with torch.no_grad():
-        for data in validation_loader:
-            images, labels = data
-            images = images.to(device)
-            labels = labels.to(device)
-            total += labels.size(0)
+    Args:
+        model (torch.nn.Module): El modelo PyTorch a evaluar.
+        validation_loader (torch.utils.data.DataLoader): DataLoader para el conjunto de datos de validación.
+        optimizer (torch.optim.Optimizer): El optimizador utilizado para entrenar el modelo.
 
-            optimizer.zero_grad()
+    Returns:
+        float: La precisión del modelo en el conjunto de datos de validación.
+    """
+    model.eval()  # Establece el modelo en modo de evaluación, desactivando la normalización de dropout y batch.
+    predicted_correct_epoch = 0  # Inicializa el contador de predicciones correctas en la época.
+    total = 0  # Inicializa el contador total de imágenes evaluadas.
+    device = set_device()  # Establece el dispositivo de ejecución (CPU o GPU).
 
-            outputs = model(images)
+    with torch.no_grad():  # Desactiva el cálculo de gradientes durante la evaluación.
+        for data in validation_loader:  # Itera sobre el conjunto de datos de validación.
+            images, labels = data  # Obtiene las imágenes y las etiquetas del lote actual.
+            images = images.to(device)  # Transfiere las imágenes al dispositivo de ejecución.
+            labels = labels.to(device)  # Transfiere las etiquetas al dispositivo de ejecución.
+            total += labels.size(0)  # Actualiza el contador total de imágenes.
 
-            _, predicted = torch.max(outputs.data,1)
-            predicted_correct_epoch += (labels==predicted).sum().item()
+            optimizer.zero_grad()  # Reinicia los gradientes del optimizador.
 
-    epoch_acc = 100.00 *  predicted_correct_epoch/ total
-    print("----- Testing dataset got {} out of {} images correct ({}%)".format(predicted_correct_epoch, total, epoch_acc))
-    return epoch_acc
+            outputs = model(images)  # Realiza una inferencia con el modelo.
+
+            _, predicted = torch.max(outputs.data, 1)  # Obtiene las predicciones del modelo.
+            predicted_correct_epoch += (labels == predicted).sum().item()  # Actualiza el contador de predicciones correctas.
+
+    epoch_acc = 100.00 * predicted_correct_epoch / total  # Calcula la precisión del modelo en el conjunto de datos de validación.
+    print("----- Testing dataset got {} out of {} images correct ({}%)".format(predicted_correct_epoch, total, epoch_acc))  # Imprime la precisión del modelo.
+    return epoch_acc  # Devuelve la precisión del modelo en el conjunto de datos de validación.
+
+
 
 def save_checkpoint(model, epoch, optimizer, best_acc):
+    """
+    Función para guardar un punto de control del modelo.
+
+    Args:
+        model (torch.nn.Module): El modelo PyTorch.
+        epoch (int): El número de época actual.
+        optimizer (torch.optim.Optimizer): El optimizador utilizado para entrenar el modelo.
+        best_acc (float): La mejor precisión alcanzada durante el entrenamiento.
+    """
+    # Crea un diccionario 'state' que contiene el estado actual del modelo, época, mejor precisión y estado del optimizador.
     state = {
-        'model': model.state_dict(),
-        'epoch': epoch + 1,
-        'best_accuracy': best_acc,
-        'optimizer': optimizer.state_dict(),
+        'model': model.state_dict(),  # Guarda el estado del modelo
+        'epoch': epoch + 1,  # Guarda el número de época actual aumentado en 1
+        'best_accuracy': best_acc,  # Guarda la mejor precisión alcanzada durante el entrenamiento
+        'optimizer': optimizer.state_dict(),  # Guarda el estado del optimizador
     }
+    # Define el nombre del archivo donde se guardará el punto de control
     filename = f"./models/model_best_checkpoint.pth.tar"
+    # Guarda el diccionario 'state' en un archivo usando torch.save()
     torch.save(state, filename)
