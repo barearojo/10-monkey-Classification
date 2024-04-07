@@ -2,48 +2,64 @@ import torch
 from utils import set_device
 
 def train_nn(model, train_loader, test_loader, criterion, optimizer, n_epochs):
-    device = set_device()
-    best_acc = 0
+    """
+    Función para entrenar un modelo de red neuronal.
 
-    for epoch in range(n_epochs):
-        print("Iteración número", (epoch + 1))
-        model.train()
-        running_loss = 0.0
-        running_correct = 0.0
-        total = 0
+    Args:
+        model (torch.nn.Module): El modelo PyTorch a entrenar.
+        train_loader (torch.utils.data.DataLoader): DataLoader para el conjunto de datos de entrenamiento.
+        test_loader (torch.utils.data.DataLoader): DataLoader para el conjunto de datos de prueba.
+        criterion: La función de pérdida utilizada para calcular el error del modelo.
+        optimizer (torch.optim.Optimizer): El optimizador utilizado para entrenar el modelo.
+        n_epochs (int): El número de épocas de entrenamiento.
 
-        for data in train_loader:
-            images, labels = data
-            images = images.to(device)
-            labels = labels.to(device)
-            total += labels.size(0)
+    Returns:
+        torch.nn.Module: El modelo entrenado.
+    """
+    device = set_device()  # Establece el dispositivo de ejecución (CPU o GPU).
+    best_acc = 0  # Inicializa la mejor precisión en cero.
 
-            optimizer.zero_grad()
+    for epoch in range(n_epochs):  # Itera sobre el número de épocas especificado.
+        print("Iteración número", (epoch + 1))  # Imprime el número de época actual.
+        model.train()  # Establece el modelo en modo de entrenamiento, activando la normalización de dropout y batch.
+        running_loss = 0.0  # Inicializa la pérdida acumulada en cero.
+        running_correct = 0.0  # Inicializa el número de predicciones correctas acumuladas en cero.
+        total = 0  # Inicializa el contador total de imágenes evaluadas en cero.
 
-            outputs = model(images)
+        for data in train_loader:  # Itera sobre el conjunto de datos de entrenamiento.
+            images, labels = data  # Obtiene las imágenes y las etiquetas del lote actual.
+            images = images.to(device)  # Transfiere las imágenes al dispositivo de ejecución.
+            labels = labels.to(device)  # Transfiere las etiquetas al dispositivo de ejecución.
+            total += labels.size(0)  # Actualiza el contador total de imágenes.
 
-            _, predicted = torch.max(outputs.data,1)
+            optimizer.zero_grad()  # Reinicia los gradientes del optimizador.
 
-            loss = criterion(outputs,labels)
+            outputs = model(images)  # Realiza una inferencia con el modelo.
 
-            loss.backward()
+            _, predicted = torch.max(outputs.data, 1)  # Obtiene las predicciones del modelo.
 
-            optimizer.step()
+            loss = criterion(outputs, labels)  # Calcula la pérdida del modelo.
 
-            running_loss += loss.item()
-            running_correct += (labels==predicted).sum().item()
+            loss.backward()  # Realiza la retropropagación del error.
 
-        epoch_loss = running_loss/len(train_loader)
-        epoch_acc = 100.00 *  running_correct/ total
-        print("----- Training dataset got {} out of {} images correct ({}%). Con una pérdida de {}".format(running_correct, total, epoch_acc, epoch_loss))
+            optimizer.step()  # Realiza un paso de optimización.
 
-        test_acc = evaluate_model(model,test_loader,optimizer)
-        if test_acc > best_acc:
-            best_acc = test_acc
-            save_checkpoint(model, epoch, optimizer, best_acc)
-    
-    print("Entrenamiento terminado")
-    return model
+            running_loss += loss.item()  # Actualiza la pérdida acumulada.
+            running_correct += (labels == predicted).sum().item()  # Actualiza el número de predicciones correctas acumuladas.
+
+        epoch_loss = running_loss / len(train_loader)  # Calcula la pérdida promedio por época.
+        epoch_acc = 100.00 * running_correct / total  # Calcula la precisión del modelo en el conjunto de datos de entrenamiento.
+
+        print("----- Training dataset got {} out of {} images correct ({}%). Con una pérdida de {}".format(running_correct, total, epoch_acc, epoch_loss))  # Imprime la precisión y la pérdida del modelo en el conjunto de datos de entrenamiento.
+
+        test_acc = evaluate_model(model, test_loader, optimizer)  # Evalúa el modelo en el conjunto de datos de prueba.
+        if test_acc > best_acc:  # Comprueba si la precisión en el conjunto de datos de prueba es mejor que la mejor precisión registrada hasta ahora.
+            best_acc = test_acc  # Actualiza la mejor precisión.
+            save_checkpoint(model, epoch, optimizer, best_acc)  # Guarda un punto de control del modelo.
+
+    print("Entrenamiento terminado")  # Indica que el entrenamiento ha finalizado.
+    return model  # Devuelve el modelo entrenado.
+
 
 
 def evaluate_model(model, validation_loader, optimizer):
