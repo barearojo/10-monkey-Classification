@@ -1,5 +1,7 @@
 import torch
 from utils import set_device
+from PIL import Image
+import torchvision
 
 def train_nn(model, train_loader, test_loader, criterion, optimizer, n_epochs):
     """
@@ -120,3 +122,19 @@ def save_checkpoint(model, epoch, optimizer, best_acc):
     filename = f"./models/model_best_checkpoint.pth.tar"
     # Guarda el diccionario 'state' en un archivo usando torch.save()
     torch.save(state, filename)
+
+
+def classify(model_path, image_transforms, image_path):
+    # Cargar el modelo desde el archivo .pth
+    model = torch.load(model_path)
+    # Establecer el modelo en modo de evaluación
+    model = model.eval()
+
+    image = Image.open(image_path)
+    image = image_transforms(image).float()
+    image = image.unsqueeze(0)
+
+    output = model(image)
+    _, predicted = torch.max(output.data, 1)
+
+    return predicted.item()
