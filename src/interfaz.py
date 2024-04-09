@@ -1,6 +1,8 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QFileDialog, QDesktopWidget
 from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QLabel
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -15,11 +17,11 @@ class MainWindow(QMainWindow):
         self.label_imagen.setPixmap(QPixmap(""))
 
         self.btn_cargar = QPushButton("Cargar Imagen", self)
-        self.btn_cargar.setGeometry(150, 10, 100, 30)
+        self.btn_cargar.setGeometry(150, 10, 250, 80)
         self.btn_cargar.clicked.connect(self.cargar_imagen)
 
         self.btn_ejecutar = QPushButton("Ejecutar Preddición", self)
-        self.btn_ejecutar.setGeometry(1000, 800, 150, 30)
+        self.btn_ejecutar.setGeometry(850, 800, 250, 100)
         self.btn_ejecutar.clicked.connect(self.ejecutar_funcion)
 
         self.imagen = None
@@ -33,17 +35,21 @@ class MainWindow(QMainWindow):
         self.move(window_geometry.topLeft())
 
     def cargar_imagen(self):
-        filename, _ = QFileDialog.getOpenFileName(self, "Abrir Archivo", "", "Archivos de Imagen (*.png *.jpg *.bmp)")
+        filename, _ = QFileDialog.getOpenFileName(self, "Abrir Archivo", "", "Archivos de Imagen (*.png *.jpg *.bmp)") # es para indicar que no se usara el segundo valor devuelto por la funcion
         if filename:
             self.imagen = QPixmap(filename)
             self.label_imagen.setPixmap(self.imagen)
 
+
     def ejecutar_funcion(self):
         if self.imagen:
-            # Llamar a tu función existente pasándole la imagen
-            resultado = tu_funcion_existente(self.imagen)
-            # Hacer algo con el resultado, como mostrarlo en la interfaz
-            print(resultado)
+            # Crear un QLabel para mostrar el texto
+            self.label_resultado = QLabel("Hola Mundo", self)
+            # Agregar el QLabel a la ventana principal o a un layout según sea necesario
+            # Por ejemplo, si self es la ventana principal:
+            self.label_resultado.move(50, 50)  # Mover el QLabel a la posición deseada
+            self.label_resultado.show()  # Mostrar el QLabel
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
