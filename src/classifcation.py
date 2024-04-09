@@ -37,5 +37,5 @@ image_resize = transforms.Compose([
     transforms.Normalize(torch.Tensor(mean),torch.Tensor(std))
 ])
 
-prediccion = classify(mejor_modelo, image_resize,"./mantled-howler.jpg")
+prediccion = classify(mejor_modelo, image_resize,"/home/juan/proyectos/10-monkey-Classification/mantled-howler.jpg")
 print(classes[prediccion])
