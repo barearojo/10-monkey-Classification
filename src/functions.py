@@ -125,16 +125,32 @@ def save_checkpoint(model, epoch, optimizer, best_acc):
 
 
 def classify(model_path, image_transforms, image_path):
+    """
+    Clasifica una imagen utilizando un modelo de red neuronal previamente entrenado.
+
+    Parameters:
+    - model_path (str): Ruta del archivo .pth que contiene el modelo previamente entrenado.
+    - image_transforms (torch.transforms.Compose): Transformaciones aplicadas a la imagen antes de pasarla al modelo.
+    - image_path (str): Ruta de la imagen a clasificar.
+
+    Returns:
+    - int: Etiqueta predicha para la imagen.
+    """
     # Cargar el modelo desde el archivo .pth
     model = torch.load(model_path)
     # Establecer el modelo en modo de evaluación
     model = model.eval()
 
+    # Abrir la imagen desde el archivo
     image = Image.open(image_path)
+    # Aplicar las transformaciones a la imagen y convertirla a tipo float
     image = image_transforms(image).float()
+    # Agregar una dimensión extra para ajustarse al formato de entrada del modelo
     image = image.unsqueeze(0)
 
+    # Realizar la predicción utilizando el modelo
     output = model(image)
+    # Obtener la etiqueta predicha tomando el índice del valor máximo en el resultado
     _, predicted = torch.max(output.data, 1)
 
     return predicted.item()

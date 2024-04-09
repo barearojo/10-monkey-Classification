@@ -60,7 +60,6 @@ def display_image(image):
 def show_class_image(prediction):
     # Obtener la ruta de la imagen correspondiente a la clase predicha
     class_image_path = f"./media/monkeys/{classes[prediction]}.jpg"
-    print(class_image_path)
     # Verificar si la imagen existe
     if os.path.exists(class_image_path):
         # Abrir y mostrar la imagen correspondiente
