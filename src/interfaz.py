@@ -7,19 +7,19 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Interfaz con Imagen")
-        self.setGeometry(0, 0, 400, 700) #Pimer argumento posicion inical horizontal,Pimer argumento posicion inicial, ancho, altura
+        self.setGeometry(0, 0, 1500, 1500) #Primer argumento posicion inical horizontal,Pimer argumento posicion inicial, ancho, altura
         self.center()
 
         self.label_imagen = QLabel(self)
-        self.label_imagen.setGeometry(50, 50, 300, 200)
+        self.label_imagen.setGeometry(50, 50, 800, 800)
         self.label_imagen.setPixmap(QPixmap(""))
 
         self.btn_cargar = QPushButton("Cargar Imagen", self)
         self.btn_cargar.setGeometry(150, 10, 100, 30)
         self.btn_cargar.clicked.connect(self.cargar_imagen)
 
-        self.btn_ejecutar = QPushButton("Ejecutar Función", self)
-        self.btn_ejecutar.setGeometry(150, 260, 100, 30)
+        self.btn_ejecutar = QPushButton("Ejecutar Preddición", self)
+        self.btn_ejecutar.setGeometry(1000, 800, 150, 30)
         self.btn_ejecutar.clicked.connect(self.ejecutar_funcion)
 
         self.imagen = None
