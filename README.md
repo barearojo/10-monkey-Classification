@@ -32,8 +32,8 @@ Es necesario tener en cuenta que este código está adaptado tanto para si se po
 ## Capturas de Funcionamiento
 
 ![Captura del funcionamienton1](./media/Ejemplo_uso1.png)
-![Captura del funcionamienton1](./media/Ejemplo_uso1.png)
-![Captura del funcionamienton1](./media/Ejemplo_uso1.png)
+![Captura del funcionamienton2](./media/Ejemplo_uso2.png)
+![Captura del funcionamienton3](./media/Ejemplo_uso2.png)
 
 
 ## Descripción de los Scripts
