@@ -31,6 +31,10 @@ Es necesario tener en cuenta que este código está adaptado tanto para si se po
 
 ## Capturas de Funcionamiento
 
+![Captura del funcionamienton1](./media/Ejemplo_uso1.png)
+![Captura del funcionamienton1](./media/Ejemplo_uso1.png)
+![Captura del funcionamienton1](./media/Ejemplo_uso1.png)
+
 
 ## Descripción de los Scripts
 
@@ -42,7 +46,5 @@ Es necesario tener en cuenta que este código está adaptado tanto para si se po
 
 ## Autor
 
-Este proyecto fue desarrollado por [Nombre del Autor].
-
----
-Este README fue generado automáticamente.
+Este proyecto fue desarrollado por barearojo
+Es importate dar creditos a la autor de los datos de entrenamiento https://www.kaggle.com/datasets/slothkong/10-monkey-species
