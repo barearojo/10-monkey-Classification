@@ -1,4 +1,4 @@
-# Clasificación de Imágenes de Monos con PyTorch 🐒🖥️
+# Clasificación de Imágenes de Monos con PyTorch 🐒
 
 Este repositorio contiene una solución para clasificar imágenes de diferentes especies de monos utilizando una red neuronal implementada en PyTorch.
 
