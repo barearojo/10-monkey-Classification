@@ -1,50 +1,55 @@
-# Clasificación de Imágenes de Monos
+# Clasificación de Imágenes de Monos con PyTorch
 
-Este repositorio contiene un conjunto de scripts para clasificar imágenes de diferentes especies de monos utilizando una red neuronal pre-entrenada. A continuación se describen los diferentes scripts y su funcionalidad.
+Este repositorio contiene una solución para clasificar imágenes de diferentes especies de monos utilizando una red neuronal implementada en PyTorch.
 
 ## Requisitos
 
-Es necesario tener instalado Python 3.x junto con las siguientes bibliotecas:
+Para ejecutar los scripts, se requiere Python 3.x junto con las siguientes bibliotecas principales:
 
-- torch
-- torchvision
+- PyTorch
+- Torchvision
 - tkinter
 - PIL
-- matplotlib
-- numpy
+- Matplotlib
+- NumPy
 
 Puede instalar estas dependencias utilizando pip:
 
+```bash
 pip install torch torchvision tkinter matplotlib numpy
+```
 
 
 ## Información Adicional
 
-Es necesario tener en cuenta que este código está adaptado tanto para si se posee una tarjeta gráfica que pueda usar CUDA como una que no. Se recomienda utilizar en máquinas donde se pueda utilizar CUDA, ya que así fue entrenada la red neuronal para este proyecto.
+Este código está adaptado tanto para usar una tarjeta gráfica compatible con CUDA como para ejecutarse en CPU. Se recomienda encarecidamente utilizar CUDA si está disponible, ya que la red neuronal fue entrenada con este fin.
 
 ## Instrucciones de Uso
 
-1. Ejecute `python3 src/std_mean.py` (solo necesario si se cambian los datos de entrenamiento) para calcular la media y la desviación estándar del conjunto de datos de entrenamiento.
-2. Copie los resultados obtenidos y póngalos dentro de `train.py`.
-3. Ejecute `python3 src/train.py` (solo necesario si se quiere volver a entrenar la red neuronal, es necesario cambiar en el código el número de iteraciones).
-4. Ejecute `python3 src/interfaz.py` para iniciar la interfaz gráfica de clasificación de imágenes de monos.
+1. **Calcular Media y Desviación Estándar**: Ejecute `python3 src/std_mean.py` (solo si se modifican los datos de entrenamiento) para calcular la media y la desviación estándar del conjunto de datos de entrenamiento.
+   
+2. **Entrenar la Red Neuronal**: Copie los resultados obtenidos y pégalos dentro de `train.py`. Ejecute `python3 src/train.py` (solo si desea re-entrenar la red neuronal; cambie el número de iteraciones en el código si es necesario).
+   
+3. **Interfaz Gráfica de Clasificación**: Ejecute `python3 src/interfaz.py` para iniciar la interfaz gráfica de clasificación de imágenes de monos.
 
 ## Capturas de Funcionamiento
 
-![Captura del funcionamienton1](./media/Ejemplo_uso1.png)
-![Captura del funcionamienton2](./media/Ejemplo_uso2.png)
-![Captura del funcionamienton3](./media/Ejemplo_uso2.png)
-
+![Captura de funcionamiento 1](./media/Ejemplo_uso1.png)
+![Captura de funcionamiento 2](./media/Ejemplo_uso2.png)
+![Captura de funcionamiento 3](./media/Ejemplo_uso3.png)
 
 ## Descripción de los Scripts
 
-1. `train.py`: Script para entrenar la red neuronal utilizando los datos de entrenamiento proporcionados. También se encarga de guardar el mejor modelo obtenido durante el entrenamiento.
+1. `train.py`: Script para entrenar la red neuronal utilizando los datos de entrenamiento proporcionados. También guarda el mejor modelo obtenido durante el entrenamiento.
+   
 2. `interfaz.py`: Script para ejecutar una interfaz gráfica que permite al usuario cargar una imagen y clasificarla utilizando el modelo pre-entrenado.
+   
 3. `std_mean.py`: Script para calcular la media y la desviación estándar del conjunto de datos de entrenamiento, necesarios para la normalización de datos durante el entrenamiento.
+   
 4. `functions.py`: Contiene funciones auxiliares utilizadas en los otros scripts, como la función para clasificar una imagen y la función para encontrar el mejor modelo en una carpeta.
+   
 5. `utils.py`: Contiene funciones de utilidad, como la función para establecer el dispositivo de cálculo (CPU o GPU) y la función para guardar un punto de control del modelo durante el entrenamiento.
 
-## Autor
+## Agradecimientos
 
-Este proyecto fue desarrollado por barearojo
-Es importate dar creditos a la autor de los datos de entrenamiento https://www.kaggle.com/datasets/slothkong/10-monkey-species
+Agradecemos al autor del conjunto de datos necesario para el entrenamiento. Los datos utilizados en este proyecto fueron obtenidos de [este conjunto de datos en Kaggle](https://www.kaggle.com/datasets/slothkong/10-monkey-species).
