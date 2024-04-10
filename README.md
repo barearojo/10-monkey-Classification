@@ -1,8 +1,8 @@
-# Clasificación de Imágenes de Monos con PyTorch
+# Clasificación de Imágenes de Monos con PyTorch 🐒🖥️
 
 Este repositorio contiene una solución para clasificar imágenes de diferentes especies de monos utilizando una red neuronal implementada en PyTorch.
 
-## Requisitos
+## Requisitos 📋
 
 Para ejecutar los scripts, se requiere Python 3.x junto con las siguientes bibliotecas principales:
 
@@ -19,12 +19,11 @@ Puede instalar estas dependencias utilizando pip:
 pip install torch torchvision tkinter matplotlib numpy
 ```
 
-
-## Información Adicional
+## Información Adicional ℹ️
 
 Este código está adaptado tanto para usar una tarjeta gráfica compatible con CUDA como para ejecutarse en CPU. Se recomienda encarecidamente utilizar CUDA si está disponible, ya que la red neuronal fue entrenada con este fin.
 
-## Instrucciones de Uso
+## Instrucciones de Uso 🚀
 
 1. **Calcular Media y Desviación Estándar**: Ejecute `python3 src/std_mean.py` (solo si se modifican los datos de entrenamiento) para calcular la media y la desviación estándar del conjunto de datos de entrenamiento.
    
@@ -32,13 +31,13 @@ Este código está adaptado tanto para usar una tarjeta gráfica compatible con 
    
 3. **Interfaz Gráfica de Clasificación**: Ejecute `python3 src/interfaz.py` para iniciar la interfaz gráfica de clasificación de imágenes de monos.
 
-## Capturas de Funcionamiento
+## Capturas de Funcionamiento 📷
 
 ![Captura de funcionamiento 1](./media/Ejemplo_uso1.png)
 ![Captura de funcionamiento 2](./media/Ejemplo_uso2.png)
 ![Captura de funcionamiento 3](./media/Ejemplo_uso3.png)
 
-## Descripción de los Scripts
+## Descripción de los Scripts 📝
 
 1. `train.py`: Script para entrenar la red neuronal utilizando los datos de entrenamiento proporcionados. También guarda el mejor modelo obtenido durante el entrenamiento.
    
