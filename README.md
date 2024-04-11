@@ -9,7 +9,6 @@ Para ejecutar los scripts, se requiere Python 3.x junto con las siguientes bibli
 - PyTorch
 - Torchvision
 - tkinter
-- PIL
 - Matplotlib
 - NumPy
 
@@ -21,7 +20,7 @@ pip install torch torchvision tkinter matplotlib numpy
 
 ## Información Adicional ℹ️
 
-Este código está adaptado tanto para usar una tarjeta gráfica compatible con CUDA como para ejecutarse en CPU. Se recomienda encarecidamente utilizar CUDA si está disponible, ya que la red neuronal fue entrenada con este fin.
+Este código está adaptado tanto para usar una tarjeta gráfica compatible con CUDA como para ejecutarse en CPU. Se recomienda encarecidamente utilizar CUDA si está disponible, ya que la red neuronal fue diseñada con esta tecnología en mente. Te en cuenta que solo con CPU se podrá entrenar pero de manera mucho más lenta.
 
 ## Instrucciones de Uso 🚀
 
@@ -29,7 +28,7 @@ Este código está adaptado tanto para usar una tarjeta gráfica compatible con 
    
 2. **Entrenar la Red Neuronal**: Copie los resultados obtenidos y pégalos dentro de `train.py`. Ejecute `python3 src/train.py` (solo si desea re-entrenar la red neuronal; cambie el número de iteraciones en el código si es necesario).
    
-3. **Interfaz Gráfica de Clasificación**: Ejecute `python3 src/interfaz.py` para iniciar la interfaz gráfica de clasificación de imágenes de monos.
+3. **Interfaz Gráfica de Clasificación**: Ejecute `python3 src/interfaz.py` para iniciar la interfaz gráfica de clasificación de imágenes de monos. Introduzca una imagen que aparecera en la izquierda mientras que en la derecha se verá la prediccción realizada por el modelo. 
 
 ## Capturas de Funcionamiento 📷
 
